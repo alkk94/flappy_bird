@@ -15,6 +15,7 @@ class Player:
         self.y = Player.START_POSITION[1]
         self.isJump = False
         self.jumpCount = 0
+        self.mask = pygame.mask.from_surface(Player.FLAPPY_BIRD)
 
     def draw(self, screen):
         screen.blit(Player.FLAPPY_BIRD, (self.x, self.y))
@@ -37,3 +38,9 @@ class Player:
                 self.isJump = False
         else:
             self.fall()
+
+    def is_lose(self):
+        return self.y < 0 or self.y > (DISTANCE_PIPE - 1) * ELEMENT_SIZE
+
+    def get_position(self):
+        return self.x, self.y

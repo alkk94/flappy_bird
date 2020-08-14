@@ -17,16 +17,15 @@ class Game:
     pygame.init()
     pygame.display.set_caption('Flappy Bird')
 
-    # Jump sound
+    # Sounds
     JUMP_SOUND = pygame.mixer.Sound(os.path.join("..", "sounds", "jump.wav"))
 
     def __init__(self):
         self.run = True
         self.player = Player()
-        self.board = Board(os.path.join("..", "worlds", "world1.txt"))
+        self.board = Board(os.path.join("..", "worlds", "world.txt"))
         self.screen = pygame.display.set_mode(Game.RESOLUTION)
         self.clock = pygame.time.Clock()
-        self.x = 0
 
         self.execute()
 
@@ -46,14 +45,13 @@ class Game:
 
     def ticking(self):
         self.clock.tick(Game.FPS)
+        self.board.move(Game.GAME_SPEED)
         self.player.move()
-        self.move()
+        if self.player.is_lose():
+            self.run = False
 
     def draw(self):
         self.screen.blit(Game.BG, (0, 0))
-        self.board.draw(self.screen, self.x)
+        self.board.draw(self.screen)
         self.player.draw(self.screen)
         pygame.display.update()
-
-    def move(self):
-        self.x += Game.GAME_SPEED
