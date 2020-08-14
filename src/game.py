@@ -47,7 +47,9 @@ class Game:
         self.clock.tick(Game.FPS)
         self.board.move(Game.GAME_SPEED)
         self.player.move()
-        if self.player.is_lose():
+        if self.player.is_off_board():
+            self.run = False
+        if self.board.is_collision(self.player.get_position()):
             self.run = False
 
     def draw(self):

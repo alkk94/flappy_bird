@@ -29,3 +29,10 @@ class Board:
             pipe.move(x)
         if not self.pipes[0].is_needed():
             self.pipes.pop(0)
+
+    def is_collision(self, player_position):
+        for pipe in self.pipes:
+            if player_position[0] + ELEMENT_SIZE < pipe.x:
+                return False
+            elif pipe.is_player_in_range_pipe(player_position[0]):
+                return pipe.is_collision(player_position[1])

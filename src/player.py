@@ -8,7 +8,7 @@ class Player:
     JUMP_MAX = 2 * ELEMENT_SIZE
     JUMP_SPEED = 4
     FALL_SPEED = 4
-    FLAPPY_BIRD = pygame.image.load(os.path.join("..", "images", "flappy_bird.png"))
+    FLAPPY_BIRD = pygame.image.load(os.path.join("..", "images", "flappy_bird1.png"))
 
     def __init__(self):
         self.x = Player.START_POSITION[0]
@@ -39,8 +39,8 @@ class Player:
         else:
             self.fall()
 
-    def is_lose(self):
-        return self.y < 0 or self.y > (DISTANCE_PIPE - 1) * ELEMENT_SIZE
+    def is_off_board(self):
+        return self.y <= 0 or self.y >= (DISTANCE_PIPE - 1) * ELEMENT_SIZE
 
     def get_position(self):
         return self.x, self.y

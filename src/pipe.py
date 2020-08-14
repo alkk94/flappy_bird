@@ -71,3 +71,12 @@ class Pipe:
 
     def is_hidden(self):
         return self.x >= WIDTH
+
+    def is_player_in_range_pipe(self, player_x):
+        return self.x - ELEMENT_SIZE < player_x < self.x + 2 * ELEMENT_SIZE
+
+    # Assumption: if function is_player_in_range_pipe return True
+    def is_collision(self, player_y):
+        range_aperture = self.get_range_aperture()
+        return not range_aperture[0] < player_y < range_aperture[1] - ELEMENT_SIZE
+
